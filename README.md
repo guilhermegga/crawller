@@ -1,4 +1,4 @@
 # Crawller
   Crawller feito para TCC 2.
-## Necessário para rodar
+## Necessário para funcionar
 - lib python TwitterSearch (encontrada no pip)
