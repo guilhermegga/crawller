@@ -1,4 +1,6 @@
 from TwitterSearch import *
+from textblob import TextBlob
+import nltk
 
 def buscaTweets():
     try:
@@ -9,20 +11,27 @@ def buscaTweets():
 
         #chaves de acesso
         ts = TwitterSearch(
-            consumer_key = '3OKAOOEoPlJ5aQKR3ZII5OQGY',
-            consumer_secret = 'IdfwEWchz8Mv468pklbb06px08lpDKHYHMEGSKpuLWYjtD1pMa',
-            access_token = '296608449-ngjTc7kHu4hZpw5GD4KSwZvLd5mZ1VRecYNkEr9m',
-            access_token_secret = 'Rn7NeeCWTcL4Ux0dHx4diRGt0o7pHwCsS2Q4gnyz1GOyG'
+            consumer_key = 'xxxxxx',
+            consumer_secret = 'xxxxxx',
+            access_token = 'xxxxxx',
+            access_token_secret = 'xxxxxxxx'
          )
         resultEncontrado = ts.search_tweets_iterable(tso)
         #percorrendo o que foi encontrado
         for tweet in resultEncontrado:
             # print('@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text']))
-            print(tweet)
-
+            analisarFrase(tweet['text'])
     #exceção caso algo de errado aconteça
     except TwitterSearchException as e:
         print(e)
+def analisarFrase(tweetOriginal):
+    blob = TextBlob(tweetOriginal)
+    traducao = blob.translate(to='en')
+    tweetMod = TextBlob(str(traducao))
+    print('Tweet original:{0}'.format(tweetOriginal))
+    print('Tweet traduzido:{0} \nSentimento: {1}\n\n----\n'.format(str(traducao),tweetMod.sentiment_assessments))
+
+
 
 
 buscaTweets()
